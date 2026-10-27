@@ -11,9 +11,36 @@ To perform regular differncing,seasonal adjustment and log transformatio on inte
 5. Display the overall results.
 ### PROGRAM:
 
-<img width="810" height="612" alt="Screenshot 2026-10-17 091902" src="https://github.com/user-attachments/assets/64a3c8c8-e799-4e2e-bb3b-9991aada7d62" />
-<img width="785" height="588" alt="Screenshot 2026-10-17 091116" src="https://github.com/user-attachments/assets/131d69e5-2164-4969-b808-3abad75ab44b" />
-<img width="752" height="150" alt="Screenshot 2026-10-17 091017" src="https://github.com/user-attachments/assets/35913f65-19ef-4af2-b678-98be6002788d" />
+```
+```python
+from matplotlib import pyplot as plt
+import pandas as pd
+
+df = pd.read_csv("/content/superstore_final_dataset.csv", encoding="latin1")
+
+print(df.head())
+
+# Convert Order Date to datetime
+df['Order Date'] = pd.to_datetime(df['Order Date'])
+
+# Extract year
+df['Year'] = df['Order Date'].dt.year
+
+# Calculate total sales for each year
+yearly_sales = df.groupby('Year')['Sales'].sum()
+
+# Plot graph
+plt.figure(figsize=(10, 6))
+plt.plot(yearly_sales.index, yearly_sales.values, label='Total Sales', color='black')
+
+plt.title('Time Series Plot of Sales Each Year')
+plt.xlabel('Year')
+plt.ylabel('Total Sales')
+plt.legend()
+plt.grid(True)
+
+plt.show()
+```
 
 
 ## output:
